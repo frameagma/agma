@@ -6,8 +6,8 @@
 // @author       You
 // @match        https://agma.io/*
 // @icon         https://cdn.discordapp.com/avatars/273991316730544128/ec62988dfc40e0f5313a8923d0883a43.webp?size=80
-// @updateURL    https://raw.githubusercontent.com/frameagma/YourRepo/script.user.js/script.meta.js
-// @downloadURL  https://raw.githubusercontent.com/YourUsername/YourRepo/script.user.js/script.user.js
+// @updateURL    https://github.com/frameagma/agma/blob/script.user.js/script.meta.js
+// @downloadURL  https://github.com/frameagma/agma/blob/script.user.js/script.user.js
 // @grant        none
 // ==/UserScript==
 
