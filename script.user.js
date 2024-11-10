@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Mtest
 // @namespace    http://tampermonkey.net/
-// @version      0.3.1
+// @version      0.3
 // @description  Combined Multi Controls, Chat Phrases, and Skin Changer
 // @author       You
 // @match        https://agma.io/*
@@ -10,6 +10,44 @@
 // @downloadURL  https://github.com/frameagma/agma/blob/script.user.js/script.user.js
 // @grant        none
 // ==/UserScript==
+const CURRENT_VERSION = "0.3"; // Match this with your @version in the header
+const VERSION_CHECK_URL = "https://raw.githubusercontent.com/frameagma/agma/script.user.js/script.meta.js";
+const checkForUpdates = async () => {
+    try {
+        const response = await fetch(VERSION_CHECK_URL);
+        const metaContent = await response.text();
+
+        // Extract version from meta file
+        const versionMatch = metaContent.match(/@version\s+([0-9.]+)/);
+        if (versionMatch) {
+            const latestVersion = versionMatch[1];
+
+            if (latestVersion !== CURRENT_VERSION) {
+                curserMsg(`Update available! Current: ${CURRENT_VERSION}, Latest: ${latestVersion}`, '#ff9900');
+
+                // Add update notification to status panel
+                const panel = document.getElementById('status-panel');
+                if (panel) {
+                    const updateDiv = document.createElement('div');
+                    updateDiv.style.cssText = `
+                        display: flex;
+                        align-items: center;
+                        margin-left: 15px;
+                    `;
+                    updateDiv.innerHTML = `
+                        <span style="color: #ff9900">⬤</span>
+                        <span style="margin-left: 5px; color: #ff9900">Update</span>
+                    `;
+                    panel.appendChild(updateDiv);
+                }
+            } else {
+                curserMsg('Script is up to date!', 'green');
+            }
+        }
+    } catch (error) {
+        console.error('Error checking for updates:', error);
+    }
+};
 
 // Core variables
 let amountpellet;
@@ -2035,6 +2073,8 @@ document.addEventListener("keydown", async function (e) {
     }
 });
 
+
+
 // Initialize the menu
 const initializeMenu = () => {
     // Remove existing elements
@@ -2084,9 +2124,13 @@ const initializeMenu = () => {
 // Main entry point - try multiple initialization methods
 const initialize = () => {
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeMenu);
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeMenu();
+            checkForUpdates();
+        });
     } else {
         initializeMenu();
+        checkForUpdates();
     }
 };
 initialize();
