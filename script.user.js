@@ -10,7 +10,7 @@
 // @downloadURL  https://github.com/frameagma/agma/blob/script.user.js/script.user.js
 // @grant        none
 // ==/UserScript==
-const CURRENT_VERSION = "0.3.1"; // Match this with your @version in the header
+const CURRENT_VERSION = "0.3"; // Match this with your @version in the header
 const VERSION_CHECK_URL = "https://raw.githubusercontent.com/frameagma/agma/script.user.js/script.meta.js";
 const checkForUpdates = async () => {
     try {
